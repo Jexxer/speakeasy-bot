@@ -4,6 +4,7 @@ import { db } from "../db/client.js";
 import { ROLES, ROLE_GROUPS } from "../config/roles.js";
 import { COOLDOWNS } from "../config/constants.js";
 import { vouchCooldowns } from "../config/cache.js";
+import { logIncident } from "../utils/logger.js";
 
 export const data = new SlashCommandBuilder()
   .setName("vouch")
@@ -17,6 +18,8 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction) {
   const voucher = interaction.member;
+  const voucherDisplayName =
+    interaction.member?.displayName || interaction.author.username;
   const voucherId = interaction.user.id;
 
   // Check permission (do they have any vouch-allowed role?)
@@ -73,6 +76,9 @@ export async function execute(interaction) {
 
   // Add role to user
   await guildMember.roles.add(ROLES.PATRONS, `Vouched by ${voucher.user.tag}`);
+  await logIncident(
+    `<@${target.id}> has been vouched for by <@${voucher.id}> and has been promoted to <@&${ROLES.PATRONS}>.`
+  );
 
   // Log to DB
   await db.vouch.create({
