@@ -77,7 +77,7 @@ export async function execute(interaction) {
   // Add role to user
   await guildMember.roles.add(ROLES.PATRONS, `Vouched by ${voucher.user.tag}`);
   await logIncident(
-    `<@${target.id}> has been vouched for by <@${voucher.id}> and has been promoted to <@&${ROLES.PATRONS}>.`
+    `<@${target.id}> has been vouched for by <@${voucher.id}> and promoted to <@&${ROLES.PATRONS}>.`
   );
 
   // Log to DB
