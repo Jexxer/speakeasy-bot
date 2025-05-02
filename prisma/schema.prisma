@@ -20,3 +20,12 @@ model Vouch {
   vouchedBy String
   createdAt DateTime @default(now())
 }
+
+model Sponsor {
+  id          Int      @id @default(autoincrement())
+  userId      String // ID of user being sponsored
+  sponsoredBy String // ID of the sponsor
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, sponsoredBy])
+}
