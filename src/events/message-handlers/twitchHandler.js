@@ -29,19 +29,20 @@ export async function handleTwitchClip(message) {
         "R"
       )}`
     )
-    .setImage(
-      clip.thumbnailUrl.replace(
-        /-preview-\d+x\d+\.jpg$/,
-        "-preview-480x272.jpg"
-      )
-    )
+    // .setImage(
+    //   clip.thumbnailUrl.replace(
+    //     /-preview-\d+x\d+\.jpg$/,
+    //     "-preview-480x272.jpg"
+    //   )
+    // )
+    .setImage(clip.thumbnailUrl)
     .setFooter({
       text: `Posted by: ${message.member?.nickname || message.author.username}`,
       iconURL: message.author.displayAvatarURL(),
     });
 
   try {
-    await message.delete();
+    await message.suppressEmbeds(true);
     await message.channel.send({ embeds: [embed] });
   } catch (err) {
     console.error("❌ Error posting Twitch embed:", err.message);

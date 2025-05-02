@@ -44,7 +44,7 @@ export async function handleYouTubeLink(message) {
     });
 
   try {
-    await message.delete();
+    await message.suppressEmbeds(true);
     await message.channel.send({ embeds: [embed] });
   } catch (err) {
     console.error("❌ YouTube handler error:", err.message);

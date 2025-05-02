@@ -9,14 +9,15 @@ function extractAppId(url) {
 }
 
 function getRelativeTimestamp(rd) {
-  try {
-    const releaseDate = new Date(rd);
-    const unixTimestamp = Math.floor(releaseDate.getTime() / 1000);
-    return `<t:${unixTimestamp}:R>`;
-  } catch (error) {
-    console.error("Error parsing release date:", error);
-    return rd?.date || "Unknown";
+  if (typeof rd !== "string" || !rd.trim()) return "Unknown";
+
+  const releaseDate = new Date(rd);
+  if (isNaN(releaseDate.getTime())) {
+    return rd; // Pass through if it's not a valid date
   }
+
+  const unixTimestamp = Math.floor(releaseDate.getTime() / 1000);
+  return `<t:${unixTimestamp}:R>`;
 }
 
 // Builds the Discord embed for a Steam game
@@ -106,7 +107,7 @@ export async function handleSteamLink(message) {
 
     const embed = buildSteamGameEmbed(gameData, message, playerCount);
 
-    await message.delete();
+    await message.suppressEmbeds(true);
     await message.channel.send({ embeds: [embed] });
   } catch (err) {
     console.error("❌ Failed to fetch Steam data:", err.message);
