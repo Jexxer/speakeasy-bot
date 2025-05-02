@@ -11,18 +11,16 @@ export async function registerEvents(client) {
     const { name, once, execute } = await import(`../events/${file}`);
 
     if (!name || !execute) {
-      console.warn(
-        `⚠️ Skipping event '${file}': missing 'name' or 'execute' export`
-      );
+      console.warn(`⚠️ Skipping event ${file}: Missing name or execute`);
       continue;
     }
 
     if (once) {
-      client.once(name, (...args) => execute(client, ...args));
+      client.once(name, (...args) => execute(...args));
     } else {
-      client.on(name, (...args) => execute(client, ...args));
+      client.on(name, (...args) => execute(...args));
     }
 
-    console.log(`✅ Registered event: ${name} (${once ? "once" : "on"})`);
+    console.log(`✅ Registered event: ${name}`);
   }
 }
