@@ -1,4 +1,3 @@
-// src/index.js
 import { Client, GatewayIntentBits, Collection } from "discord.js";
 import dotenv from "dotenv";
 import { registerEvents } from "./handlers/registerEvents.js";
