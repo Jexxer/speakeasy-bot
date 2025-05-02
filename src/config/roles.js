@@ -1,0 +1,29 @@
+export const ROLES = {
+  THE_BARTENDERS: "442950628226891776", // Co-founders and admins of the server
+  DOORMEN: "1367232229616517163", // Mods of the server
+  SHOT_CALLERS: "1367232349158375476", // Not really used
+  REGULARS: "548160052767227905", // Can vouch, inner circle
+  LOUNGE_VIXENS: "458821696498040832", // Can vouch, inner circle
+  FRIENDS_OF_THE_HOUSE: "1367260820945371329", // unused for now
+  PATRONS: "555109309189586954", // Vouched members by regualrs/vixens and above
+  LIVE_NOW: "556491339953471488", // people who are live now on Twitch
+  NITRO_BOOSTER: "617432295950909654", // people who boost the server
+};
+
+export const ROLE_GROUPS = {
+  CAN_VOUCH: [
+    ROLES.THE_BARTENDERS,
+    ROLES.DOORMEN,
+    ROLES.SHOT_CALLERS,
+    ROLES.REGULARS,
+    ROLES.LOUNGE_VIXENS,
+  ],
+  ALREADY_VOUCHED_OR_HIGHER: [
+    ROLES.THE_BARTENDERS,
+    ROLES.DOORMEN,
+    ROLES.SHOT_CALLERS,
+    ROLES.REGULARS,
+    ROLES.LOUNGE_VIXENS,
+    ROLES.PATRONS,
+  ],
+};
